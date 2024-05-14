@@ -1,5 +1,9 @@
-# Frontend
+# Proyecto Dockerizado
+Con Drontend y Backend integrados (No desacoplados), para eliminar arranque de IDEs IntelliJ y Visual Studio Code
 
+
+# Frontend
+ 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.1.2.
 
 ## Development server

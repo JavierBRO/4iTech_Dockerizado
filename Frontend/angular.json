@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Frontend": {
+    "angular-4iTech": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/frontend",
+            "outputPath": "dist/angular-4i-tech",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -59,10 +59,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "Frontend:build:production"
+              "buildTarget": "angular-4iTech:build:production"
             },
             "development": {
-              "buildTarget": "Frontend:build:development"
+              "buildTarget": "angular-4iTech:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -70,7 +70,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "Frontend:build"
+            "buildTarget": "angular-4iTech:build"
           }
         },
         "test": {
@@ -83,7 +83,11 @@
             "tsConfig": "tsconfig.spec.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets", {
+                "glob": "**/*",
+                "input": "node_modules/tinymce",
+                "output": "/tinymce/"
+              }
             ],
             "styles": [
               "src/styles.css"

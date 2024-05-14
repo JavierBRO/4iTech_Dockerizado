@@ -1,0 +1,62 @@
+
+
+<div class="container" style="width: 60%;">
+  <div class="row mb-5">
+      <div class="col">
+
+
+          <h1 class="mt-5 mb-5 text-gradiente">
+            Comentario con Id:  {{comment?.id}}</h1>
+
+          @if (comment) {
+         
+          <div class="card border-success mb-3 card-detail" style="max-width: none !important;">
+              
+            @if (comment.user) {
+              <div class="card-header" style="font-size: large; color: antiquewhite;">Usuario/a:&nbsp;&nbsp;&nbsp;&nbsp;<strong>{{comment.user.firstName}}</strong>
+                
+                <span class="badge text-bg-warning text-decoration-none ms-5 me-3 mb-2" >
+                  <i class="bi bi-calendar3 me-2"></i>
+                  Día: {{comment.dateTime | date: 'dd/MM/yyyy'}}</span>
+                 <span class="badge text-bg-success text-decoration-none ms-5 me-3 mt-1">
+                  <i class="bi-alarm me-2" style="font-size: 1rem; color: white;"></i>
+                  Hora: {{comment.dateTime | date: 'HH:mm'}}</span>
+              </div>
+            } @else {
+              <div class="card-header">Usuario anónimo</div>
+
+            }
+              <div class="card-body text-success">
+                <h3 class="card-title" style="color: #debf27;">Charla🗣️:<strong style="color: rgb(238, 240, 244); padding: 15px;" >«{{comment.keynote?.title}}»</strong></h3> 
+                <br>
+                <p class="card-text text-light" style="font-size: large;">{{comment.opinion}}</p>
+              </div>
+              <hr>
+              
+              <!-- nbgratinng-->
+              <p style="margin-left: 15px;font-size: large;color: #debf27;"><strong>Valoración: </strong> {{comment.rating}} </p>
+              
+              <div class=" mb-3 text-center " >
+                <ngb-rating [(rate)]="comment.rating"  [max]="5" [readonly]="true" formControlName="rating">
+                  <ng-template let-fill="fill" let-index="index">
+                    <i class="bi-star{{ fill === 100 ? '-fill' : '' }} fs-1" style="color: #debf27; margin: 4px;"></i>
+                  </ng-template>
+                </ngb-rating>
+
+              </div>
+     
+            </div>
+
+            @if (isAdmin || isLoggedIn) {
+
+              <button class="w-100 btn btn-lg btn-outline-light p-1 me-3 mb-5" style="display: block; background-color: #2f6ac9;" 
+              [routerLink]="['/comments']"><i class="bi bi-wrench-adjustable me-2"></i>Volver a Listado de comentarios</button>
+              
+            }
+
+          }  
+         
+      </div>
+       
+  </div>
+</div>

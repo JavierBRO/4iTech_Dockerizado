@@ -1,0 +1,73 @@
+.card {
+  width: 100%;
+ 
+  height: auto;
+  background: linear-gradient(to right, #e3c9b6, #d8363a, #dd3675, #b44593);
+  border: 1px solid #000;
+  padding: 2em;
+  box-sizing: border-box;
+  transition: transform 2s;
+  transform-style: preserve-3d;
+ 
+  padding-bottom: 13px;
+}
+
+.card:hover {
+  transform: rotateX(180deg);
+}
+
+.card-content {
+  font-size: 1em; /* Ajusta este valor según tus necesidades */
+}
+
+@media only screen and (max-width: 600px) {
+  .card {
+      padding: 1em;
+  }
+
+  .card-content {
+      font-size: 0.8em; /* Ajusta este valor según tus necesidades */
+  }
+}
+
+
+  
+  .circular-span {
+    background-color: rgb(194, 69, 38); /* Cambia a tu color preferido */
+    border-radius: 50%; /* Hace que el span sea circular */
+    padding: 5px; /* Espacio alrededor del texto */
+    color: black; /* Color del texto */
+  }
+  .text-gradiente {
+
+    background: linear-gradient(to right, #e3c9b6, #d8363a, #dd3675, #b44593);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* efecto de agrandar las imágenes del grid un 10% */
+img.zoom {
+  transition: 0.4s ease;
+}
+img.zoom:hover {
+  transform: scale(1.1);
+}
+/* frenar la velocidad de crecimiento del spinner-grow */
+.spinner-grow {
+--bs-spinner-animation-speed: 0.99s;
+}
+
+.container-img {
+  display: flex;
+  align-items: center;
+}
+
+img {
+  width: 50%;
+}
+
+.text {
+  width: 50%;
+  text-align: center;
+}
+  

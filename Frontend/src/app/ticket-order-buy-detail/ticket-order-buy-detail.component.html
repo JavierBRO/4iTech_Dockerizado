@@ -1,0 +1,51 @@
+<div class="container py-3" style="margin-bottom: 80px;">
+    <header class="text-center mb-4">
+        <div class="pricing-header p-3 pb-md-4 mx-auto">
+            <h1 class="display-4 fw-normal text-dark"><strong>Detalle de Compra </strong></h1>
+            <p class="fs-5 text-muted">Te encuentras en la sección de ordenes de compra : {{ticketOrderBuy?.id}} ✍</p>
+        </div>
+    </header>
+
+    <main>
+        <div class="card mx-5 my-3 p-3">
+            <div class="row">
+                <!-- Columna izquierda: Imagen dentro de la tarjeta -->
+                <div class="col-md-6 d-flex justify-content-center align-items-center">
+                        <img src="/assets/Ticket/img/colabora.png" alt="Conectando mentes creando futuro" class="img-fluid" style="width: 100%;">
+                 
+                </div>
+
+                <!-- Columna derecha: Ticket dentro de la tarjeta -->
+                <div class="col-md-6">
+                    <div class="card mb-4 rounded-3 shadow-sm p-3">
+                        <div class="card-header py-3 bg-light text-center">
+                            <h4 class="my-0 fw-normal text-primary"><strong>Orden de compra</strong></h4>
+                        </div>
+                        <div class="card-body ">
+                            <!-- Detalles del ticket -->
+                            <h1 class="card-title pricing-card-title text-center">{{ticketOrderBuy?.id}}<small class="text-muted fw-light">✍</small></h1>
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <li><strong>• Fecha:</strong> {{ticketOrderBuy?.startDate | date: 'dd/MM/yyyy'}}</li>
+                                <li><strong>• Descuento:</strong> {{ticketOrderBuy?.discount}}%</li>
+                                <li><strong>• Método de Pago:</strong> {{ticketOrderBuy?.paymentMethod}}</li>
+                                <li><strong>• Cantidad:</strong> {{ticketOrderBuy?.quantity}}</li>
+                                <li><strong>• Medio de Compra:</strong> {{ticketOrderBuy?.channel}}</li>
+                                <li><strong>• Precio Total:</strong> {{ticketOrderBuy?.totalPrice}}</li>
+                                <li><strong>• QR:</strong> {{ticketOrderBuy?.qrUrl}}</li>
+                            </ul>
+                            
+                            <div class="text-center mb-3">
+                                <img src="/assets/Ticket/qr.png" alt="Código QR" class="img-fluid" style=" width: 150px;">
+                            </div>
+                            <h4 class="text-center text-info ">¡Gracias por tu compra!</h4>
+                           
+                            <div>
+                                <a class="w-50 btn btn-lg btn-outline-primary mx-auto" style="display: block;" href="/ticketOrderBuys/create">Editar Ticket</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

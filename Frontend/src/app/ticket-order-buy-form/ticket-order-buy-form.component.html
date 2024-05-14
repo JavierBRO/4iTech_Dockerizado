@@ -1,0 +1,243 @@
+<div class="container py-3 background-gradient" style="max-width:960px; margin-bottom: 80px !important;">
+  <main> 
+  <header>
+    <div class="py-5 text-center">
+      @if (ticket) {
+        <h2>Compra tu ticket {{ticket.id}} </h2>
+      }@else {
+        <h1 class="display-4 fw-normal text-body-emphasis text-primary"><strong>Aquí esta tu orden de compra</strong></h1>
+      }
+
+      <p class="lead fs-5 text-body-secondary">Edita o actualiza la información de las ordenes de compra</p>
+      <img class="d-block mx-auto mb-4" src="/assets/Ticket/img/compras.gif" alt="" width="72" height="57">
+    </div>
+  </header>
+  
+          
+             <div class="row g-5">
+               <div class="col-lg-8 border rounded p-3" style="background-color: #f5f5f5;">
+                  <div class="py-1 text-center">
+      <h4 class="mb-3">Datos de la compra</h4>
+      
+
+      @if (showFinishMessage) {
+        <ngb-alert type="primary" [dismissible]="false" style="min-height:150px;" class="my-5">
+          <p class="fst-italic text-secondary">Compra realizada con éxito ✓</p>
+          <br><strong>
+          El localizador de tu reserva es {{ticketOrderBuy?.id}}
+        </strong><br>
+          Podrás ver tu pedido en tus reservas ingresando con tu cuenta.  Si deseas información contacte con nosotros en
+          <a href="mailto:spam@4itech.com">spam&commat;4itech.com</a>.
+          <img class="d-block mx-auto mb-4 m-3" src="/assets/Ticket/CompraOrden.png" alt="" width="472" height="757">
+          <button class="w-50 btn btn-primary btn-lg mb-5 mt-5" routerLink="/ticketOrderBuys">Volver a ticket</button>
+        </ngb-alert>
+      } @else {
+        <form class="needs-validation" novalidate="" [formGroup]="ticketOrderBuyForm" (ngSubmit)="save()">
+          <label>Elige tu día de asistencia:</label>
+          <!-- Aquí iran las fechas de inicio reserva y fecha fin reserva -->
+          <div class="form-floating mb-3">
+            <input type="date" class="form-control" id="startDate"
+            formControlName="startDate" placeholder="yyyy-mm-dd" (change)="calculatePrice()">
+            <label for="startDate">Día de inicio de asistencia</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="date" class="form-control" id="finishDate"
+            formControlName="finishDate" placeholder="yyyy-mm-dd" (change)="calculatePrice()">
+            <label for="finishDate">Día de fin de asistencia</label>
+          </div>
+          
+          <div class="col-md-5 col-lg-5 py-3">
+            <input type="checkbox" class="form-check-input" style="cursor:pointer;" id="isStudent" value=""
+            formControlName="isStudent" (change)="calculatePrice()">
+            <label class="form-check-label ms-3" for="isStudent" style="cursor:pointer;" >
+              Soy Estudiante Adecco
+            </label>
+          </div>
+          
+          
+          <!-- <div class="py-1 text-center"> -->
+            <!-- <label for="extraService">Elije tu Pack</label> -->
+            <!-- <select class="form-select" id="extraService" formControlName="extraService" (change)="calculatePrice()"> -->
+              <!-- <option value="0">Ticket plata (50 €)</option> -->
+              <!-- <option value="20">Ticket oro (50 €)</option> -->
+              <!-- <option value="50">Ticket Diamante (100 €)</option> -->
+            <!-- </select> -->
+          <!-- </div> -->
+
+          <div class="py-3 text-center">
+            <label for="quantity" class="form-label"><strong>Cantidad de entradas a comprar</strong></label>
+            <input min="1" max="10" type="number" class="form-control form-input" id="quantity" name="quantity" formControlName="quantity" (change)="calculatePrice()">
+            <small class="form-text text-muted">Máximo 10 tickets por compra.</small>
+          </div>
+
+
+          <div class="justify-content py-3">
+            <span class="form-label"> <strong>Método de Compra</strong></span>
+            <div class="form-check ms-3 col-md-5 col-lg-3 ms-5">
+              <input class="form-check-input " type="radio" name="flexRadioDefault" id="online" checked>
+              <label class="form-check-label" for="online">Compra Online</label>
+            </div>
+            <div class="form-check col-md-5 col-lg-3 ms-5">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="offline">
+              <label class="form-check-label" for="offline">Compra Offline </label>
+            </div>
+          </div>
+        
+          <hr class="my-4">
+                  <div class="py-3 text-center">
+                  <label for="paymentMethod" class="form-label"> <strong>Método de Pago</strong></label>
+                  <select class="form-select form-input" id="paymentMethod" (change)="onPaymentMethodChange($event)">
+                    <option selected disabled>Selecciona un método</option>
+                    <option value="tarjeta">Tarjeta débito</option>
+                    <option value="tarjeta2">Tarjeta crédito</option>
+                    <option value="paypal">Paypal</option>
+                  </select>
+                </div>
+        
+        <!-- <div class="py-2 mb-3 text-center"> -->
+          <!-- <select class="form-select" id="codigoqrUrl"> -->
+            <!-- <select class="form-select form-input" id="paymentMethod"> -->
+              <!-- <option selected disabled>Este es tu codigo</option> -->
+            <!-- <option >4itech Url</option> -->
+          <!-- </select> -->
+        <!-- </select> -->
+      <!-- </div> -->
+
+      @if (showCardData){
+        <div class="card" style="background-color:#f2f2f3">
+          <div class="card-body">
+              <form id="paymentMethod" onsubmit="return validateForm()">
+                  <div class="mb-3 d-flex align-items-center">
+                      <label for="cardNumber" class="form-label">Número de tarjeta</label>
+                      <input type="text" class="form-control text-success" id="cardNumber" name="cardNumber" placeholder="1234 5678 1234 5678" required (input)="onCardNumberInput($event)">
+                      <img *ngIf="isCardNumberComplete" src="/assets/Ticket/img/v.png" alt="visa" class="img-fluid" style=" width: 100px;">
+                  </div>
+
+                  <div class="mb-3 d-flex align-items-center">
+                    <div class="d-flex align-items-center">
+                      <label for="expirationDate" class="form-label">Fecha de vencimiento</label>
+                      <input type="text" class="form-control" id="expirationDate" name="expirationDate" placeholder="MM/AA" required>
+                  </div>
+                  
+                  <div class=" d-flex align-items-center">
+                      <label for="cvv" class="form-label">CVV</label>
+                      <input type="password" class="form-control" id="cvv" name="cvv" placeholder="123" required>
+                  </div>
+                </div>
+                  <!-- Botón de envío -->
+                  <button type="button" [style.backgroundColor] ="buttonClicked ? 'blue' : 'light'" (click)="onButtonClick()" >
+                  OK
+              </button>
+              <span *ngIf="buttonClicked" class="text-primary" style="margin-left: 10px; ">Datos correctos ✓</span>
+              
+              </form>
+      
+              <!-- Mostrar la marca de verificación o la pestaña de correcto -->
+              <div id="correctMark" style="display: none;">
+                  <span>&#10003; Datos correctos </span>
+              </div>
+          </div>
+      </div>
+   
+    
+
+      }
+
+      <hr class="my-4">
+      <p class="fst-italic text-secondary">Antes de realizar tu compra, recuerda que no se hacen devoluciones.</p>
+      
+          <button type="submit" class="btn btn-lg btn-outline-primary p-1 me-3">Comprar</button>
+          <!-- <button type="submit" class="btn btn-lg btn-outline-info p-1 me-3">Actualizar Ticket</button> -->
+          <button type="button" class="btn btn-lg btn-outline-danger p-1 me-3" [routerLink]="['/tickets', ticket?.id]">Cancelar</button>
+      
+        </form>
+        
+        
+
+      }
+                  </div>
+                </div>
+               
+                <div class="col-lg-4 col-md-5  order-md-last">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                  <span class="text-primary">Precios</span>
+                  <span class="badge bg-primary rounded-pill"> {{numDays}} días</span>
+                </h4>
+               
+                <ul class="list-group mb-3">
+                  @if (ticketPrice > 0) {
+                    <li class="list-group-item justify-content-between lh-sm">
+                        <div>
+                            <h6 class="my-0">Precio por día</h6>
+                            <small class="text-body-secondary"> {{ticket?.price}}</small>
+                        </div>
+                        <span class="text-body-secondary">{{ticketPrice | currency:'EUR':'symbol':'1.2-2'}}</span>
+                    </li>
+                    }
+                    @if(ticketOrderBuyForm.get('isPremiumShip')?.value) {
+                      <li class="list-group-item justify-content-between lh-sm">
+                          <div>
+                              <h6 class="my-0">Ticket dos días</h6>
+                              <small class="text-body-secondary">ticket diamante</small>
+                          </div>
+                          <span class="text-body-secondary">{{shipPrice}}</span>
+                    </li>
+                    }
+                    @if(extraPrice > 0) {
+                      <li class="list-group-item  justify-content-between lh-sm">
+                        <div>
+                          <h6 class="my-0">ticket un solo día</h6>
+                          <small class="text-body-secondary">ticket premium</small>
+                        </div>
+                        <span class="text-body-secondary">{{extraPrice}}</span>
+                      </li>
+                      }
+                      <li class="list-group-item  justify-content-between bg-body-tertiary">
+                        <div class="text-success">
+                          <h6 class="my-0">Aquí esta tu descuento</h6>
+                          <small>x Ser estudiante Adecco</small>
+                        </div>
+                        <span class="text-success"> - 10% en tu compra </span>
+                      </li>
+                      <li class="list-group-item justify-content-between">
+                        <span>Total (EUR)</span>
+                        <strong>{{totalPrice | currency:'EUR':'symbol':'1.2-2'}}</strong>
+                      </li>
+                </ul>
+                <form class="card p-2">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="****">
+                    <button type="submit" class="btn btn-secondary">Código Especial</button>
+                  </div>
+                </form>
+                
+
+                <div class="video-cover vid-container pt-1" style="width: 40%; max-width: 500px; margin: -10 auto;" routerLink="/about">
+                  <video autoplay loop muted style="width: 250%;">
+                      <source src="assets/videos/4itech_v1.mp4" type="video/mp4"  />
+                      
+                  </video>
+                  <video autoplay loop muted style="width: 250%;" routerLink="/ticketOrderBuys" >
+                    <source src="assets/videos/venta.mp4" type="video/mp4" />
+                    
+                </video>
+              </div>
+              <img  src="/assets/Ticket/img/colabora.png" alt="Conectando mentes creando futuro " routerLink="/home" width="280">
+              
+                </div>
+             </div>
+             
+          
+        </main>
+        <div class="d-flex flex-column flex-sm-row justify-content-between py-5  my-5 border-top"></div>
+</div>
+
+
+
+
+
+
+
+
+
+      

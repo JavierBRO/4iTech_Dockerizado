@@ -1,0 +1,56 @@
+<div class="container-fluid" style="background-color: #eee;">
+  <div class="px-lg-5">
+    <main class="form-signin w-100 m-auto">
+      <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-xl-10">
+            <div class="card rounded-3 text-black">
+              <div class="row g-0">
+                <div class="col-lg-6">
+                  <div class="card-body p-md-5 mx-md-4">
+    
+                    <form [formGroup]="loginForm" (ngSubmit)="save()">
+                      <h1 class="h3 mb-3 fw-normal text-secondary mt-4 fw-bold" style="font-family: 'Libre Franklin';">Acceder a tu cuenta</h1>
+    
+                      <div class="form-floating">
+                        <input type="email" class="form-control mb-3" id="email" placeholder="name@example.com" formControlName="email">
+                        <label class="text-secondary" for="email">Email address</label>
+                      </div>
+    
+                      <div class="form-floating">
+                        <input type="password" class="form-control mb-3" id="password" placeholder="Password" formControlName="password">
+                        <label class="text-secondary" for="password">Password</label>
+                      </div>
+    
+                      <div class="text-center pt-1 mb-5 pb-1">
+                        <button class="btn btn-primary w-100 py-2 gradient-custom-2 mb-2 fw-bold" type="submit">Iniciar sesión</button>
+                        @if(errorMessage && errorMessage.length > 0) {
+                          <small class="text-danger">{{errorMessage}}</small>
+                        }
+                        <a class="text-muted" href="#!">¿Olvidaste la contraseña?</a>
+                      </div>
+    
+                      <div class="d-flex align-items-center justify-content-center pb-4">
+                        <p class="mb-0 me-2 text-secondary">¿No tienes cuenta en &commat;4iTech?</p>
+                        <button style="opacity: .8;" type="button" class="btn btn-sm text-bg-primary text-light fw-semibold" routerLink="/register" (click)="$event.preventDefault()">Crear cuenta</button>
+                      </div>
+    
+                    </form>
+    
+                  </div>
+                </div>
+                <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+                  <div style="font-family: 'Libre Franklin';" class="text-white px-3 py-4 p-md-4 mx-md-4">
+                    <h4 class="mb-4">Vuelve el aprendizaje con &commat;4iTech</h4>
+                    <p class="mb-0"><span class="fw-bold">¿Estás listo para sumergirte en el apasionante mundo de la tecnología?</span> Accede a tu cuenta en nuestra web de eventos tecnológicos y abre las puertas a un sinfín de posibilidades.</p>
+                    <p class="mt-4">No te pierdas la oportunidad de vivir una experiencia única y enriquecedora. Accede a tu cuenta ahora y prepárate para explorar las últimas tendencias, conocer a los líderes del sector y construir tu futuro en el apasionante mundo de la tecnología.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

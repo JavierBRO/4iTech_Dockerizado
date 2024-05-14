@@ -1,0 +1,177 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+
+      <h1 class="mt-5 mb-5 text-gradiente">Listado de Comentarios</h1>
+
+      <ngb-carousel class="mt-3">
+        @for (comment of comments; track comment.id) {
+        <ng-template ngbSlide>
+          <div class="mb-3">
+            <div
+              class="card shadow-0 border"
+              style="background-color: #f0f2f5"
+            >
+              <div class="card-body p-4 with=300; height=200">
+                <div class="card mb-4">
+                  <div class="card-body text-secondary">
+                    <div class="d-flex justify-content-between">
+                      <div class="d-flex flex-row align-items-center">
+                        <img
+                          class="rounded-circle shadow-1-strong me-3"
+                          [src]="'http://localhost:8080/files/' + comment.user?.photoUrl"
+                          alt="avatar"
+                          width="60"
+                          height="60"
+                        />
+                        <div>
+                          <h6 class="fw-bold text-primary-emphasis mb-1">
+                            {{ comment.user?.firstName }}
+                          </h6>
+
+                          <p class="small mb-0 fst-italic">
+                            Publicado -
+                            {{ comment.dateTime | date : "dd/MM/yyyy" }}
+                          </p>
+                        </div>
+                      </div>
+                      <div class="d-flex flex-row align-items-center">
+                        <p class="small text-muted mb-0">Rating</p>
+                        <i
+                          class="far fa-thumbs-up mx-2 fa-xs text-black"
+                          style="margin-top: -0.16rem"
+                        ></i>
+                        <p class="small text-muted mb-0">
+                          <ngb-rating
+                            [(rate)]="comment.rating"
+                            [max]="5"
+                            [readonly]="true"
+                            formControlName="rating"
+                          >
+                            <ng-template let-fill="fill" let-index="index">
+                              <i
+                                class="bi-star{{
+                                  fill === 100 ? '-fill' : ''
+                                }}"
+                                style="color: rgb(222, 191, 39); margin: 4px"
+                              ></i>
+                            </ng-template>
+                          </ngb-rating>
+                        </p>
+                      </div>
+                    </div>
+
+                    <p
+                      class="text-light-emphasis fw-lighter fst-italic mt-3 mb-4"
+                      style="font-family: 'Libre Franklin'"
+                    >
+                      {{ comment.opinion | shortText }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        }
+      </ngb-carousel>
+      <hr>
+
+      @if (showDeletedCommentMessage) {
+      <!--<ngb-alert type="success" [dismissible]="false">Comentario borrado correctamente</ngb-alert>-->
+      <ngb-alert type="success" (closed)="hideDeletedCommentMessage()">Comentario borrado correctamente.</ngb-alert>
+      }
+      @if (isLoggedIn) {
+      <table class="table mb-5 mt-5" style="border-collapse: collapse;">
+        <thead>
+          <tr>
+            <th scope="col" class="text-center-bg-primary"></th>
+
+            <th scope="col" class="text-center-bg-primary">Id</th>
+            <th scope="col" class="text-bg-secondary">Fecha</th>
+            <th scope="col" class="text-bg-primary">Valoración</th>
+            <th scope="col" class="text-bg-secondary">Reseña</th>
+            <th scope="col" class="text-bg-primary">Usuario</th>
+            <th scope="col" class="text-bg-secondary">Charla</th>
+            <th scope="col" class="text-bg-primary">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (comment of comments; track comment.id) {
+          <tr>
+            <th scope="row" class="text-center-bg-primary"></th>
+
+            <td scope="row" class="text-center-bg-primary"><strong>{{comment.id}}</strong></td>
+            <td>{{comment.dateTime | date:'dd/MM/yyyy'}}<br>{{comment.dateTime | date: 'HH:mm:ss'}}</td>
+            <td><ngb-rating [(rate)]="comment.rating" [max]="5" [readonly]="true" formControlName="rating">
+                <ng-template let-fill="fill" let-index="index">
+                  <i class="bi-star{{ fill === 100 ? '-fill' : '' }}"
+                    style="color: rgb(222, 191, 39); margin: 4px;"></i>
+                </ng-template>
+              </ngb-rating></td>
+            <td>{{comment.opinion}}</td>
+            <td>
+              <!-- @if (comment.user.firstName === null) {
+                                      <h6 class="fw-bold text-primary-emphasis mb-1">{{comment.user.email}}</h6>
+
+                                    }
+                                    @else {
+                                      <h6 class="fw-bold text-primary-emphasis mb-1">{{comment.user.firstName}}</h6>
+                                    }-->
+              @if (isAdmin) {
+              <a class="badge text-bg-secondary text-decoration-none"
+                [routerLink]="['/users', comment.user?.id, 'detail']">
+                @if (comment.user?.firstName === null) { {{comment.user?.email}} } @else { {{comment.user?.firstName}} }
+              </a>
+
+              } @else {
+              <a class="badge text-bg-secondary text-decoration-none">
+                @if (comment.user?.firstName=== null) { {{comment.user?.email}} } @else { {{comment.user?.firstName}} }
+              </a>
+
+              }
+
+            </td>
+            <td>
+              <a class="badge text-bg-warning text-decoration-none"
+                [routerLink]="['/keynotes', comment.keynote?.id, 'detail']">
+                {{comment.keynote?.title}}
+              </a>
+            </td>
+            <td>
+              <button class="btn btn-info mb-1 me-1" style="background-color: #62AFFE;"
+                [routerLink]="['/keynotes', comment.keynote?.id, 'detail']"><i class="bi bi-eye me-1"></i>Ver</button>
+              @if (isAdmin) {
+              <button class="btn btn-success mb-1 me-1" style="background-color: #49CC90;"
+                [routerLink]="['/comments', comment.id, 'update']"><i
+                  class="bi bi-pencil-square me-1"></i>Editar</button>
+              <button class="btn btn-danger mb-1 " style="background-color: #F93E3F;" (click)="delete(comment)"><i
+                  class="bi bi-trash me-1"></i>Borrar</button>
+
+              }
+            </td>
+          </tr>
+
+          }
+
+        </tbody>
+      </table>
+
+      } @else {
+      <div class="container">
+        <h3 id="myText" class="text-secondary" style="font-family: 'Libre Franklin'">
+          <strong>Para ver listado y dejar tus comentarios, debes acceder como usuario registrado </strong><button
+            class="btn me-3 ms-3">
+            <a class="nav-link border border-warning rounded border-2 p-1 " routerLink="/register"
+              (click)="$event.preventDefault()" id="" role="button"><i
+                class="bi bi-box-arrow-in-right me-2"></i>Registrarse</a>
+          </button>
+        </h3>
+          
+      </div>
+          
+      }
+    
+    </div>
+  </div>
+</div>
