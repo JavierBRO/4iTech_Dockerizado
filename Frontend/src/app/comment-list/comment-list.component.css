@@ -1,3 +1,5 @@
+
+
 table {
     background-color:  #a7c9f5; /* Color de fondo para toda la tabla */
 }
@@ -20,7 +22,6 @@ td {
     -webkit-text-fill-color: transparent;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap');
 
 /* estilos texto aviso si no estás logado */
 @-webkit-keyframes track-in-out {
