@@ -26,8 +26,8 @@ RUN rm -rf /usr/share/nginx/html/*
 
 # Copiar los archivos de la build de Angular a nginx
 # /app/dist/nombreproyecto <-- AQUÍ SE PONE EL NOMBRE DEL PROYECTO DE ANGULAR
-# COPY --from=build /app/dist/angular-4i-tech/usr/share/nginx/html
-COPY --from=build /app/dist/frontend/browser /usr/share/nginx/html
+# COPY --from=build /app/dist/frontend/usr/share/nginx/html
+COPY --from=build /app/dist/angular-4i-tech/browser /usr/share/nginx/html
 
 EXPOSE 80
 

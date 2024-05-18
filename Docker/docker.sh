@@ -26,7 +26,7 @@ docker stop mysql-830
 # Volver a iniciar el contenedor
 docker start mysql-830
 
-# Entrar dentro del contenedor:
+# Entrar dentro del contenedor: docker exec -it mysql-830 cmd
 docker exec -it mysql-830 bash
 
 # Entrar a mysql por terminal:
@@ -62,10 +62,10 @@ docker run -p 8080:8080 --name backend --network myapp-network -e SPRING_DATASOU
 # 5. Ver logs de spring (Ctrl + C para salir)
 docker logs -f backend
 
-# 6. Crear imagen frontend  (En mi caso el nombre del proyecto es docker build -t angular-4i-tech:0.0.1 .)?
+# 6. Crear imagen frontend  (En mi caso ?? el nombre del proyecto es docker build -t angular-4i-tech:0.0.1 .)?
 docker build -t frontend:0.0.1 .
 
-# 7. Crear contenedor frontend (en mi caso docker run -p 80:80 --name frontend --network myapp-network -d angular-4i-tech::0.0.1)?
+# 7. Crear contenedor frontend (en mi caso ?? docker run -p 80:80 --name frontend --network myapp-network -d angular-4i-tech::0.0.1)?
 docker run -p 80:80 --name frontend --network myapp-network -d frontend:0.0.1
 
 # Recomendación: crear un archivo docker-compose.yml y gestionar el arranque de contenedores con Docker Compose

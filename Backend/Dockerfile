@@ -13,7 +13,7 @@ COPY ${JAR_FILE} backend.jar
 ENTRYPOINT ["java", "-jar", "/backend.jar"]
 
 # Construir la imagen docker y se debe ejecutar donde esté el Dockerfile
-# Es decir, en el directorio del backend : ejecutar en el directorio del Backend el comando de abajo con elpunto final
+# Es decir, en el directorio del backend : ejecutar en el directorio del Backend el comando de abajo con el punto final
 # docker build -t backend:0.0.1 .
 
 
