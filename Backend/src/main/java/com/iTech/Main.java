@@ -543,7 +543,7 @@ public class Main {
 				1,
 				"Fue un poco desastre la ponencia no esclarecedora de estas avanzadas tecnologías que " +
 						"están transformando la manera en que concebimos y creamos contenido " +
-						"de manera revolucionaria.",
+						"de manera revolucionaria." + " Pero al menos defendió su postura el ponente",
 				LocalDateTime.of(2024, 4,2, 21,15),u4, keynote3);
 
 		commentRepository.saveAll(List.of(c1, c2, c3, c4));
