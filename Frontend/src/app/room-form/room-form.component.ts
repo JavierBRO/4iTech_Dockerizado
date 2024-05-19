@@ -23,6 +23,10 @@ export class RoomFormComponent implements OnInit{
   
   isUpdate: boolean = false;
 
+  room: Room | undefined;
+  photoFile: File | undefined;
+  photoPreview: string | undefined;
+
   constructor(
     private fb: FormBuilder,
     private httpClient: HttpClient,
@@ -42,22 +46,52 @@ export class RoomFormComponent implements OnInit{
       });
     });
   }
+  onFileChange(event: Event) {
+    console.log(event);
+    let target = event.target as HTMLInputElement;
+
+    if(target.files === null || target.files.length == 0) {
+      return; // no se procesa ningún archivo
+    }
+
+    this.photoFile = target.files[0]; // guardar el archivo para enviarlo luego en el save()
+
+  // OPCIONAL: PREVISUALIZAR LA IMAGEN POR PANTALLA
+  let reader = new FileReader();
+  reader.onload = event => this.photoPreview = reader.result as string;
+  reader.readAsDataURL(this.photoFile);
+  }
 
   save(){
-    const room: Room = this.roomForm.value as Room;
-    console.log(room);
+    // const room: Room = this.roomForm.value as Room;
+    // console.log(room);
+    let formData = new FormData();
+
+    formData.append('id', this.roomForm.get('id')?.value?.toString() ?? '0');
+    formData.append('name', this.roomForm.get('name')?.value ?? '');
+    formData.append('capacity', this.roomForm.get('capacity')?.value?.toString() ?? '0');
+    formData.append('hasSockets', this.roomForm.get('hasSockets')?.value?.toString() ?? '0');
+    formData.append('photoUrl', this.roomForm.get('photoUrl')?.value ?? '');
+
+    if(this.photoFile) {
+      formData.append("photo", this.photoFile);
+    }
+
+
 
     if (this.isUpdate){
-      const url = 'http://localhost:8080/rooms/' + room.id;
-      this.httpClient.put<Room>(url, room).subscribe(roomFromBackend => {
-        this.router.navigate(['/rooms']);
+      const url = 'http://localhost:8080/rooms/' + this.room?.id;
+      this.httpClient.put<Room>(url, formData).subscribe(roomFromBackend => {
+        this.navigateToList();
       });
     } else {
       const url = 'http://localhost:8080/rooms';
-      this.httpClient.post<Room>(url, room).subscribe(roomFromBackend => {
-        this.router.navigate(['/rooms']);
+      this.httpClient.post<Room>(url, formData).subscribe(roomFromBackend => {
+        this.navigateToList();
       });
     }
   }
-
+  private navigateToList() {
+    this.router.navigate(['/rooms']);
+  }
 }
