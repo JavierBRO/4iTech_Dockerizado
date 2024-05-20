@@ -466,7 +466,7 @@ public class Main {
 						</ul>
 						<p><strong>En conclusión, Big Data es una realidad que transforma el panorama empresarial y organizacional. Su capacidad para extraer información valiosa de grandes volúmenes de datos abre un sinfín de oportunidades para la toma de decisiones estratégicas, la mejora de la eficiencia y la innovación. Sin embargo, es necesario abordar los desafíos técnicos y de gestión para aprovechar todo su potencial de forma segura y responsable.</strong></p>
 						""","big_data_2.png", "eXMaoSEYrso",
-				room3, 150L,DifficultyLevel.SENIOR,50,u3,tr2,null, true);
+				room5, 150L,DifficultyLevel.SENIOR,50,u3,tr2,null, true);
 		Keynote keynote8 = new Keynote(8L, "Internet de las cosas (IoT)",
 				"IoT: Un mundo conectado",
 				"""
