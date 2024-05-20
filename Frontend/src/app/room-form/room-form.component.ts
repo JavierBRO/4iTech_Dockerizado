@@ -43,6 +43,7 @@ export class RoomFormComponent implements OnInit{
       .subscribe(roomFromBackend => {
         this.roomForm.reset(roomFromBackend);
         this.isUpdate = true;
+        this.room = roomFromBackend;
       });
     });
   }
@@ -63,7 +64,7 @@ export class RoomFormComponent implements OnInit{
   }
 
   save(){
-    // const room: Room = this.roomForm.value as Room;
+    //const room: Room = this.roomForm.value as Room;
     // console.log(room);
     let formData = new FormData();
 
@@ -74,24 +75,24 @@ export class RoomFormComponent implements OnInit{
     formData.append('photoUrl', this.roomForm.get('photoUrl')?.value ?? '');
 
     if(this.photoFile) {
-      formData.append("photo", this.photoFile);
+      formData.append('photo', this.photoFile);
     }
 
 
 
     if (this.isUpdate){
       const url = 'http://localhost:8080/rooms/' + this.room?.id;
-      this.httpClient.put<Room>(url, formData).subscribe(roomFromBackend => {
-        this.navigateToList();
-      });
+      this.httpClient.put<Room>(url, formData)
+      .subscribe(room => this.navigateToRooms());
+      
     } else {
       const url = 'http://localhost:8080/rooms';
-      this.httpClient.post<Room>(url, formData).subscribe(roomFromBackend => {
-        this.navigateToList();
-      });
+      this.httpClient.post<Room>(url, formData)
+      .subscribe(room => this.navigateToRooms());
+      
     }
   }
-  private navigateToList() {
+  private navigateToRooms() {
     this.router.navigate(['/rooms']);
   }
 }

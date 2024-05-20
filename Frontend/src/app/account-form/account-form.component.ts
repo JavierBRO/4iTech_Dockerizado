@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { User } from '../models/user.model';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-account-form',
@@ -27,7 +27,9 @@ export class AccountFormComponent implements OnInit {
 
   });
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient,
+              private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.httpClient.get<User>('http://localhost:8080/users/account')
@@ -51,10 +53,13 @@ export class AccountFormComponent implements OnInit {
     this.user.password = this.userForm.get('password')?.value;
     this.user.address = this.userForm.get('address')?.value;
 
-    console.log(this.user);
+    //console.log(this.user);
     
     this.httpClient.put<User>('http://localhost:8080/users/account', this.user)
-    .subscribe(user => this.user = user);
+    .subscribe(user => {
+      this.user = user;
+      this.router.navigate(['/users']);
+    });
   }
 
 }

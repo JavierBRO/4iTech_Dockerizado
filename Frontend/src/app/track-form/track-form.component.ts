@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Track } from '../models/track.model';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { DatePipe } from '@angular/common';
   templateUrl: './track-form.component.html',
   styleUrl: './track-form.component.css'
 })
-export class TrackFormComponent {
+export class TrackFormComponent implements OnInit {
 
   trackForm = new FormGroup({
     id: new FormControl<number>(0),

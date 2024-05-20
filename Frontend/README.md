@@ -1,5 +1,5 @@
 # Proyecto Dockerizado
-Con Drontend y Backend integrados (No desacoplados), para eliminar arranque de IDEs IntelliJ y Visual Studio Code
+Con Frontend y Backend integrados (No desacoplados), para eliminar arranque de IDEs IntelliJ y Visual Studio Code
 
 
 # Frontend

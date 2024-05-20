@@ -10,10 +10,10 @@
 
         <div class="input-group mb-3">
           <input type="file" class="form-control" id="photo" (change)="onFileChange($event)">
-          <button class="btn btn-outline-secondary" type="button" id="photoBtn">Button</button>
+          <button class="btn btn-outline-secondary" type="button" id="photoBtn">Subir avatar</button>
         </div>
 
-        <button class="w-100 btn btn-primary btn-lg mb-5 mt-5" type="button" (click)="save()">Subir avatar</button>
+        <button class="w-100 btn btn-primary btn-lg mb-5 mt-5" type="button" (click)="save()">Guardar</button>
 
       </form>
 
@@ -22,11 +22,11 @@
 
       @if (photoPreview) {
         <h2 class="my-5">Nuevo avatar a subir</h2>
-        <img class="img-fluid" [src]="photoPreview">
+        <img class="img-fluid mb-5 rounded-4 shadow-lg" [src]="photoPreview">
       }
       @if (!photoPreview && user?.photoUrl) {
         <h2 class="my-5">Avatar existente</h2>
-        <img class="img-fluid" [src]="'http://localhost:8080/files/' + user?.photoUrl">
+        <img class="img-fluid mb-5 rounded-4 shadow-lg" [src]="'http://localhost:8080/files/' + user?.photoUrl">
       }
 
     </div>
