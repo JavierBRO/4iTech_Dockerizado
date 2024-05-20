@@ -3,7 +3,7 @@ package com.iTech.controller;
 import com.iTech.models.Room;
 import com.iTech.repository.RoomRepository;
 import com.iTech.services.FileService;
-import com.iTech.services.RoomService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -12,14 +12,12 @@ import java.util.List;
 import java.util.Optional;
 @CrossOrigin("*")
 @RestController
+@AllArgsConstructor
 public class RoomController {
     List<Room> rooms;
     private final RoomRepository roomRepository;
     private FileService fileService;
 
-    public RoomController(RoomService service, RoomRepository roomRepository){
-        this.roomRepository = roomRepository;
-    }
 
     @GetMapping("rooms")
     public ResponseEntity<List<Room>> findAll(){
