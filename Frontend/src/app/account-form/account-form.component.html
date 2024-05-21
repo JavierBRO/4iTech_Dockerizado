@@ -1,7 +1,7 @@
 
 
 
-<div class="container">
+<div class="container" style=" max-width: 80%" >
     <div class="row">
       <div class="col-12">
   
@@ -38,7 +38,18 @@
             <input type="phone" class="form-control"
             id="phone" formControlName="phone" placeholder="666555444" maxlength="9">
             <label for="phone">Teléfono móvil</label>
-          </div>
+            @if (userForm.controls.phone.touched && userForm.controls.phone.errors) {
+              <div>
+                  @if (userForm.controls.phone.errors ['required']){
+                      <small class="text-danger">Teléfono es Obligatorio</small>
+                  }
+                  @if (userForm.controls.phone.errors ['pattern']){
+                      <small class="text-danger">Formato de teléfono incorrecto. Debe tener 9 digitos.</small>
+                  }
+              </div>
+          }
+        </div> 
+        
 
           <div class="form-floating mb-3">
             <input type="text" class="form-control"
@@ -50,6 +61,15 @@
             <input type="password" class="form-control"
             id="password" formControlName="password" maxlength="30" minlength="8"  >
             <label for="password">Contraseña</label>
+            @if(userForm.controls.password.touched &&
+                          (
+                            userForm.controls.password.errors ||                    
+                            userForm.getError('confirmError')
+                            )) {
+                              <small class="text-danger">
+                                  La contraseña es obligatoria, y estar comprendida entre 8 y 30 caracteres.
+                              </small>
+                            }
           </div>
 
           

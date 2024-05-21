@@ -9,7 +9,7 @@
         <h2 class="fw-bold text-body-emphasis">{{room.name}}</h2>
         <p class="text-body-secondary">Pequeña descripción de esta maravillosa sala donde celebrar ponencias tecnológicas, equipada con las mejores butacas, ideales para no perder detalle o para echar un sueñecito.</p>
         @if (isAdmin) {
-          <a href="#" class="btn btn-primary btn-lg" [routerLink]="['/rooms', room.id, 'update']">Editar Sala</a>
+          <a href="#" class="btn btn-primary" [routerLink]="['/rooms', room.id, 'update']">Editar Sala</a>
         }
       </div>
 

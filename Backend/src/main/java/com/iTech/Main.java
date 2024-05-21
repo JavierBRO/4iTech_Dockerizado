@@ -146,11 +146,11 @@ public class Main {
 				.build();
 		userRepository.saveAll(List.of(u1, u2, u3, u4, u5, u6, u7, u8));
 
-		Room room1 = new Room(null, "Innovation Tech Hall", 500, true, "room.01.jpg", null);
-		Room room2 = new Room(null, "ByteSphere Convergence Hall", 350, false, "room.02.jpg",null );
-		Room room3 = new Room(null, "Quantum Nexus Summit Arena", 200, true, "room.03.jpg", null);
-		Room room4 = new Room(null, "NanoVerse Discovery Pavilion", 400, false, "room.04.jpg", null);
-		Room room5 = new Room(null, "TechHorizon Visionarium", 350,false, "room.05.jpg", null);
+		Room room1 = new Room(null, "Innovation Tech Hall", 500, true, "room.01.jpg");
+		Room room2 = new Room(null, "ByteSphere Convergence Hall", 350, false, "room.02.jpg");
+		Room room3 = new Room(null, "Quantum Nexus Summit Arena", 200, true, "room.03.jpg");
+		Room room4 = new Room(null, "NanoVerse Discovery Pavilion", 400, false, "room.04.jpg");
+		Room room5 = new Room(null, "TechHorizon Visionarium", 350,false, "room.05.jpg");
 		roomRepository.saveAll(List.of(room1, room2, room3, room4, room5));
 
 		Track tr1 = new Track(1L,"Día 1: Bienvenida al evento ",LocalDateTime.of(2024,5,28,9,0), LocalDateTime.of(2024,5,28,10,0));

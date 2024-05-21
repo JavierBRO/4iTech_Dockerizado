@@ -62,7 +62,7 @@ public class RoomController {
             String fileName = fileService.store(file);
             room.setPhotoUrl(fileName);
         } else {
-            room.setPhotoUrl("room.01.jpg");
+            room.setPhotoUrl("cafeteria.jpeg");
         }
 
         return this.roomRepository.save(room);
