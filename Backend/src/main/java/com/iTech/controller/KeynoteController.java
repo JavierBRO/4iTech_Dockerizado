@@ -70,6 +70,12 @@ public class KeynoteController {
         return this.repo.findAllByTrack_Id(id);
     }
 
+     // obtener keynotes filtrando por room
+     @GetMapping("/filter-by-room/{id}")
+     public List<Keynote> findAllByRoomId(@PathVariable Long id) {
+         return this.repo.findAllByRoom_Id(id);
+     }
+
 
 //    @PostMapping
 //    public ResponseEntity<Keynote> create(@RequestBody Keynote keynote) {

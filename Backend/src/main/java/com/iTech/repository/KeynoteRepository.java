@@ -12,6 +12,7 @@ import java.util.List;
 public interface KeynoteRepository extends JpaRepository<Keynote, Long> {
 
     List<Keynote> findAllByTrack_Id(Long id);
+    List<Keynote> findAllByRoom_Id(Long id);
     List<Keynote> findAllByTitle(String title);
 
     @Query("SELECT new com.iTech.models.KeynoteProjection(k.id, k.title, k.photoUrl) FROM Keynote k")
