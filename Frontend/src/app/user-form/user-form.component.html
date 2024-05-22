@@ -74,11 +74,11 @@
     </div>
     <div class="col-lg-4">
       @if (photoPreview) {
-        <h3 class="my-5 text-secondary mt-5 fw-bold" style="font-family: 'Libre Franklin';">Previsualización: <br> Imagen de usuario</h3>
+        <h3 class="my-5 text-secondary mt-5 fw-bold" style="font-family: 'Libre Franklin';">Previsualización: <br> Imagen de usuario/a</h3>
         <img class="img-fluid rounded-4 " [src]="photoPreview">
       }
       @if (!photoPreview && user?.photoUrl) {
-        <h3 class="my-5 text-secondary mt-5 fw-bold" style="font-family: 'Libre Franklin';">Previsualización: <br> Imagen de usuario</h3>
+        <h3 class="my-5 text-secondary mt-5 fw-bold" style="font-family: 'Libre Franklin';">Previsualización: <br> Imagen de usuario/a</h3>
         <img class="img-fluid rounded-4 " [src]="'http://localhost:8080/files/' + user?.photoUrl">
       }
     </div>
