@@ -69,7 +69,7 @@ public class TrackController {
     }
 
     
-      @DeleteMapping("rooms/{id}")
+      @DeleteMapping("tracks/{id}")
         public void deleteById(@PathVariable Long id) {
 
 
