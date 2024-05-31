@@ -24,6 +24,8 @@ import java.util.List;
 @AllArgsConstructor
 @Slf4j
 public class TrackController {
+    List<Track> tracks;
+
 
     private final TrackService trackService;
     private TrackRepository trackRepository;
@@ -31,10 +33,6 @@ public class TrackController {
     private  KeynoteRepository keynoteRepository;
     
 
-
-    public TrackController(TrackService trackService) {
-        this.trackService = trackService;
-    }
 
     @GetMapping("tracks")
    public ResponseEntity<List<Track>> findAll() {

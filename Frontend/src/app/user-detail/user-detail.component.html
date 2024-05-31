@@ -5,6 +5,9 @@
       @if (user) {
       <h1 class="text-secondary fw-bold mb-5" style="font-family: 'Libre Franklin', 'Gill Sans', 'Gill Sans MT', Calibri,
           'Trebuchet MS', sans-serif;">Detalle del usuario con Id: {{user.id}}</h1>
+          <img class="d-block mx-auto mb-4 rounded-circle"
+          [src]="'http://localhost:8080/files/' + user.photoUrl" alt="avatar de user logado" style="max-width: 200px;">
+     
 
       <div class="card mb-5" style="border-radius: 30px;">
 
