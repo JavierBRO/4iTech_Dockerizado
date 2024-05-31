@@ -24,8 +24,8 @@ import java.util.List;
 @AllArgsConstructor
 @Slf4j
 public class TrackController {
+    
     List<Track> tracks;
-
 
     private final TrackService trackService;
     private TrackRepository trackRepository;
@@ -86,6 +86,9 @@ public class TrackController {
             throw new ConflictDeleteException("No es posible borrar el track.");
         }
     }
+               // OPCION mejor TODO: Archivar tracks y rooms da menos problemas,
+               //.. (al no tener que borrar asociaciones), con las Foreing keys
+
      
 
     // @DeleteMapping("tracks/{id}")
