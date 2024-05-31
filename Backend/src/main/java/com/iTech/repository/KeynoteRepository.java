@@ -5,6 +5,8 @@ import com.iTech.models.KeynoteProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
+
 
 
 import java.util.List;
@@ -29,4 +31,10 @@ public interface KeynoteRepository extends JpaRepository<Keynote, Long> {
 
 
     List<Keynote> findAllByVisibleTrue();
+
+    @Transactional
+    void deleteByRoomId(Long roomId);
+
+    @Transactional
+    void deleteByTrackId(Long trackId);
 }

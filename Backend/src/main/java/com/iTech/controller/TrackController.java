@@ -1,7 +1,18 @@
 package com.iTech.controller;
 
+import com.iTech.exception.ConflictDeleteException;
 import com.iTech.models.Track;
+import com.iTech.models.User;
+import com.iTech.models.UserRole;
+import com.iTech.repository.CommentRepository;
+import com.iTech.repository.KeynoteRepository;
+import com.iTech.repository.TrackRepository;
+import com.iTech.security.SecurityUtils;
 import com.iTech.services.TrackService;
+
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,9 +21,16 @@ import java.util.List;
 
 @CrossOrigin("*")
 @RestController
+@AllArgsConstructor
+@Slf4j
 public class TrackController {
 
     private final TrackService trackService;
+    private TrackRepository trackRepository;
+    private  CommentRepository commentRepository;
+    private  KeynoteRepository keynoteRepository;
+    
+
 
     public TrackController(TrackService trackService) {
         this.trackService = trackService;
@@ -50,15 +68,37 @@ public class TrackController {
         }
     }
 
-    @DeleteMapping("tracks/{id}")
-    public ResponseEntity<Void> deleteTrack(@PathVariable Long id) {
-           boolean deleted = trackService.deleteTrack(id);
-           if (deleted) {
-               return ResponseEntity.noContent().build();
-           } else {
-               return ResponseEntity.notFound().build();
-           }
+    
+      @DeleteMapping("rooms/{id}")
+        public void deleteById(@PathVariable Long id) {
+
+
+           // Opción : borrar el track, pero antes desasociar o borrar aquellos objetos que apunten track
+        Track track = this.trackRepository.findById(id).orElseThrow();
+        User user = SecurityUtils.getCurrentUser().orElseThrow();
+
+    if (user.getUserRole().equals(UserRole.ADMIN)
+    )
+        try {
+            this.commentRepository.deleteByKeynoteId(id);
+            this.keynoteRepository.deleteByTrackId(id);
+            this.trackRepository.deleteById(id);
+        } catch (Exception e) {
+            log.error("Error borrando track", e);
+            throw new ConflictDeleteException("No es posible borrar el track.");
+        }
     }
+     
+
+    // @DeleteMapping("tracks/{id}")
+    // public ResponseEntity<Void> deleteTrack(@PathVariable Long id) {
+    //        boolean deleted = trackService.deleteTrack(id);
+    //        if (deleted) {
+    //            return ResponseEntity.noContent().build();
+    //        } else {
+    //            return ResponseEntity.notFound().build();
+    //        }
+    // }
 }
 // Otra forma llamando el controlador directamente al repositorio sería:
 // @AllArgsConstructor
