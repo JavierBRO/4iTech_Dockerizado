@@ -2,17 +2,26 @@ package com.iTech.services;
 
 import com.iTech.models.Room;
 import com.iTech.repository.RoomRepository;
+
+import lombok.AllArgsConstructor;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 @Service
+@AllArgsConstructor
 public class RoomServiceImpl implements RoomService {
     private final RoomRepository roomRepository;
 
-    public RoomServiceImpl(RoomRepository roomRepository){
-        this.roomRepository = roomRepository;
+    
+    @Override
+    public List<Room> findRoomVisibleTrue() {
+        return roomRepository.findAllByVisibleTrue();
     }
+     
+    
     @Override
     public List<Room> findAll() {
         return this.roomRepository.findAll();

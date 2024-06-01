@@ -23,8 +23,8 @@ public class SecurityConfig {
     }
 
 
-    // Personalizar el objeto HttpSecurity de Spring Security para utilizar nuestro filtro JWT y proteger controladores
-
+    // Personalizar el objeto HttpSecurity de Spring Security para utilizar nuestro filtro JWT 
+    // y proteger controladores
    
 
         // Para nuevas versiones de Spring >= 6.1:

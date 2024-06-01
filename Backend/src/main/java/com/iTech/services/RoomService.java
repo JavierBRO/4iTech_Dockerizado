@@ -10,4 +10,5 @@ public interface RoomService {
     Room createRoom(Room room);
     Room updateRoomById(Long id, Room room);
     void deleteRoomById(Long id);
+    List<Room> findRoomVisibleTrue();
 }

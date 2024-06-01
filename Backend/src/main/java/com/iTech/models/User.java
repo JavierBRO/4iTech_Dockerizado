@@ -10,7 +10,8 @@ import lombok.*;
 @Setter
 @Builder
 @ToString
-@Entity(name = "users") // Esta clase es una entidad y debe ser mapeada a una tabla en la BD.
+@Entity // Esta clase es una entidad y debe ser mapeada a una tabla en la BD.
+@Table(name = "users")
 public class User {
     @Id // Especifica la clave primaria de esta entidad.
     @GeneratedValue(strategy = GenerationType.IDENTITY)

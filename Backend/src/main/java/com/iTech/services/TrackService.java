@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface TrackService {
 
+    List<Track> findTrackVisibleTrue();
 
     List<Track> findTracks();
 

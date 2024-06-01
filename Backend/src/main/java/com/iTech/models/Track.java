@@ -34,6 +34,7 @@ public class Track {
 
     //@OneToMany(mappedBy = "track") //, cascade = CascadeType.ALL)
     //List<Keynote> keynoteList = new ArrayList<>();  en un futuro a mayores  ??
+    private Boolean visible;
 
 }
 

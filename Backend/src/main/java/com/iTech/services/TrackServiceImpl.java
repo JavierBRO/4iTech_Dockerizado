@@ -3,6 +3,8 @@ package com.iTech.services;
 import com.iTech.models.Track;
 import com.iTech.repository.TrackRepository;
 
+import lombok.AllArgsConstructor;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -10,15 +12,17 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+@AllArgsConstructor
 @Service
 public class TrackServiceImpl implements TrackService {
 
     private TrackRepository trackRepository;
-
-    public TrackServiceImpl(TrackRepository trackRepository) {
-        this.trackRepository = trackRepository;
+    
+    @Override
+    public List<Track> findTrackVisibleTrue() {
+        return trackRepository.findAllByVisibleTrue();
     }
-
+     
 
     @Override
     public List<Track> findTracks() {

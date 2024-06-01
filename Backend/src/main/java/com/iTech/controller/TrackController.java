@@ -71,25 +71,35 @@ public class TrackController {
         public void deleteById(@PathVariable Long id) {
 
 
-           // Opción : borrar el track, pero antes desasociar o borrar aquellos objetos que apunten track
+           // OPCION 1 : borrar el track, pero antes desasociar o borrar aquellos objetos que apunten track
+    //     Track track = this.trackRepository.findById(id).orElseThrow();
+    //     User user = SecurityUtils.getCurrentUser().orElseThrow();
+
+    // if (user.getUserRole().equals(UserRole.ADMIN)
+    // )
+    //     try {
+    //         this.commentRepository.deleteByKeynoteId(id);
+    //         this.keynoteRepository.deleteByTrackId(id);
+    //         this.trackRepository.deleteById(id);
+    //     } catch (Exception e) {
+    //         log.error("Error borrando track", e);
+    //         throw new ConflictDeleteException("No es posible borrar el track.");
+    //     }
+    // }
+               // OPCION 2 mejor TODO: Archivar tracks y rooms da menos problemas,
+               //.. (al no tener que borrar asociaciones), con las Foreing keys
+        
         Track track = this.trackRepository.findById(id).orElseThrow();
         User user = SecurityUtils.getCurrentUser().orElseThrow();
-
-    if (user.getUserRole().equals(UserRole.ADMIN)
-    )
-        try {
-            this.commentRepository.deleteByKeynoteId(id);
-            this.keynoteRepository.deleteByTrackId(id);
-            this.trackRepository.deleteById(id);
-        } catch (Exception e) {
-            log.error("Error borrando track", e);
-            throw new ConflictDeleteException("No es posible borrar el track.");
+        if (user.getUserRole().equals(UserRole.ADMIN)) {
+            track.setVisible(false);
+            trackRepository.save(track);
         }
+        
     }
-               // OPCION mejor TODO: Archivar tracks y rooms da menos problemas,
-               //.. (al no tener que borrar asociaciones), con las Foreing keys
+        
 
-     
+}     
 
     // @DeleteMapping("tracks/{id}")
     // public ResponseEntity<Void> deleteTrack(@PathVariable Long id) {
@@ -100,7 +110,7 @@ public class TrackController {
     //            return ResponseEntity.notFound().build();
     //        }
     // }
-}
+
 // Otra forma llamando el controlador directamente al repositorio sería:
 // @AllArgsConstructor
 // @RestController

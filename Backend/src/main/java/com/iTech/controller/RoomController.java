@@ -101,20 +101,32 @@ public class RoomController {
 public void deleteById(@PathVariable Long id) {
 
 
-           // Opción : borrar el room, pero antes desasociar o borrar aquellos objetos que apunten room
-        Room room = this.roomRepository.findById(id).orElseThrow();
-        User user = SecurityUtils.getCurrentUser().orElseThrow();
+           // Opción 1 : borrar el room, pero antes desasociar o borrar aquellos objetos que apunten room
+    //     Room room = this.roomRepository.findById(id).orElseThrow();
+    //     User user = SecurityUtils.getCurrentUser().orElseThrow();
 
-    if (user.getUserRole().equals(UserRole.ADMIN)
-    )
-        try {
-            this.commentRepository.deleteByKeynoteId(id);
-            this.keynoteRepository.deleteByRoomId(id);
-            this.roomRepository.deleteById(id);
-        } catch (Exception e) {
-            log.error("Error borrando room", e);
-            throw new ConflictDeleteException("No es posible borrar la sala.");
+    // if (user.getUserRole().equals(UserRole.ADMIN)
+    // )
+    //     try {
+    //         this.commentRepository.deleteByKeynoteId(id);
+    //         this.keynoteRepository.deleteByRoomId(id);
+    //         this.roomRepository.deleteById(id);
+    //     } catch (Exception e) {
+    //         log.error("Error borrando room", e);
+    //         throw new ConflictDeleteException("No es posible borrar la sala.");
+    //     }
+    // }
+             // Opción 2 : mediante un booleano visible, pasarlo a false y guardar
+             
+ 
+    Room room = this.roomRepository.findById(id).orElseThrow();
+    User user = SecurityUtils.getCurrentUser().orElseThrow();
+        if (user.getUserRole().equals(UserRole.ADMIN)) {
+            room.setVisible(false);
+            roomRepository.save(room);
         }
+        
     }
+
 
 }
