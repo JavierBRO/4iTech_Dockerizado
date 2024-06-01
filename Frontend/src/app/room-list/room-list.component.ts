@@ -22,6 +22,7 @@ export class RoomListComponent implements OnInit{
   showDeletedRoomMessage: boolean = false;
   isAdmin = false;
   isLoggedIn = false;
+  visible = true;
 
   constructor(private httpClient: HttpClient,
               private authService: AuthenticationService) {
@@ -35,7 +36,7 @@ export class RoomListComponent implements OnInit{
 
   delete (room: Room){
     const url = 'http://localhost:8080/rooms/' + room.id;
-    this.httpClient.delete(url).subscribe(Response => {
+    this.httpClient.delete(url).subscribe(rooms => {
       this.loadRooms(); // recarga las salas tras borrar una de ellas.
       this.showDeletedRoomMessage = true;
     });
@@ -43,6 +44,10 @@ export class RoomListComponent implements OnInit{
 
   hideDeletedRoomMessage() {
     this.showDeletedRoomMessage = false;
+  }
+  archive(room: Room){
+    room.visible = false;
+    
   }
 
   private loadRooms() {

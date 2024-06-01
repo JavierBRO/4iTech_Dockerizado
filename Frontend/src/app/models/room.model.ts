@@ -4,4 +4,5 @@ export interface Room {
     capacity: number;
     hasSockets: boolean;
     photoUrl: string;
+    visible: boolean;
 }

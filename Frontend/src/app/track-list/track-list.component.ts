@@ -21,6 +21,7 @@ export class TrackListComponent implements OnInit {
 
   isAdmin = false;
   isLoggedIn = false;
+  visible = true;
 
   constructor(private httpClient: HttpClient,
               private authService: AuthenticationService
@@ -37,13 +38,18 @@ export class TrackListComponent implements OnInit {
 
   delete (track: Track) {
     const url = 'http://localhost:8080/tracks/' + track.id;
-    this.httpClient.delete(url).subscribe(Response => {
+    this.httpClient.delete(url).subscribe(tracks => {
        this.loadTracks();  // recarga los libros despues de borrar
        this.showDeletedBookMessage = true;
       });  
     }
     hideDeletedTrackMessage() { //solo cambia la variable booleana de arriba de true a false
       this.showDeletedBookMessage = false;
+      }
+
+      archive(track: Track){
+        track.visible = false;
+        
       }
 
   private loadTracks() {

@@ -32,6 +32,12 @@
                       formControlName="endDate"> <!--conexion entre html y TS-->
                     <label for="endDate">Fecha fin del Track</label>
                 </div>
+                <div class="form-check mb-3 border-form ">
+                  <input type="checkbox" class="form-check-input" id="visible" formControlName="visible">
+                  <label class="form-check-label" for="visible" style="cursor:pointer;">
+                    Visible
+                  </label>
+                </div>
                 @if (isUpdate) {
                   <button class="w-100 btn btn-lg btn-outline-warning  p-1 me-3 mb-3" style="display: block;background-color: #d56d0c;" type="submit"><i class="bi bi-wrench-adjustable me-2"></i>Actualizar</button>
                 } @else {

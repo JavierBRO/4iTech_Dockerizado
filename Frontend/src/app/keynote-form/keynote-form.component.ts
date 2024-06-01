@@ -80,7 +80,7 @@ export class KeynoteFormComponent implements OnInit {
     }
 
     onFileChange(event: Event) {
-      console.log(event);
+      //console.log(event);
       let target = event.target as HTMLInputElement;
 
       if(target.files === null || target.files.length == 0) {
@@ -120,7 +120,7 @@ export class KeynoteFormComponent implements OnInit {
       
 
       let formData = new FormData();
-      console.log(this.keynoteForm.get('room')?.value);
+      //console.log(this.keynoteForm.get('room')?.value);
       
       formData.append('id', this.keynoteForm.get('id')?.value?.toString() ?? '0');
       formData.append('title', this.keynoteForm.get('title')?.value ?? '');

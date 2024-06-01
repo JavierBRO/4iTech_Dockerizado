@@ -18,7 +18,9 @@ export class TrackFormComponent implements OnInit {
     id: new FormControl<number>(0),
     name: new FormControl<string>(''),
     startDate: new FormControl<Date>(new Date()),
-    endDate: new FormControl<Date>(new Date())
+    endDate: new FormControl<Date>(new Date()),
+    visible: new FormControl<boolean>(false)
+
   });
 
   isUpdate: boolean = false;
@@ -83,7 +85,5 @@ export class TrackFormComponent implements OnInit {
 
 
 
-function save() {
-  throw new Error('Function not implemented.');
-}
+
 
