@@ -1,6 +1,7 @@
 package com.iTech.controller;
 
 import com.iTech.exception.ConflictDeleteException;
+import com.iTech.models.Keynote;
 import com.iTech.models.Track;
 import com.iTech.models.User;
 import com.iTech.models.UserRole;
@@ -25,7 +26,6 @@ import java.util.List;
 @Slf4j
 public class TrackController {
     
-    List<Track> tracks;
 
     private final TrackService trackService;
     private TrackRepository trackRepository;
@@ -36,9 +36,9 @@ public class TrackController {
 
     @GetMapping("tracks")
    public ResponseEntity<List<Track>> findAll() {
-        System.out.println("invocando findAll de tracks");
-        List<Track> tracks = trackService.findTracks();
-        return ResponseEntity.ok(tracks);
+        //System.out.println("invocando findAll de tracks");
+        List<Track> track = trackService.findTrackVisibleTrue();
+        return ResponseEntity.ok(track);
     }
     @GetMapping("tracks/{id}")
     public ResponseEntity<Track> findById(@PathVariable Long id){
@@ -88,10 +88,12 @@ public class TrackController {
     // }
                // OPCION 2 mejor TODO: Archivar tracks y rooms da menos problemas,
                //.. (al no tener que borrar asociaciones), con las Foreing keys
-        
+        Keynote keynote = this.keynoteRepository.findById(id).orElseThrow();
         Track track = this.trackRepository.findById(id).orElseThrow();
         User user = SecurityUtils.getCurrentUser().orElseThrow();
         if (user.getUserRole().equals(UserRole.ADMIN)) {
+            keynote.setVisible(false);
+            keynoteRepository.save(keynote);
             track.setVisible(false);
             trackRepository.save(track);
         }

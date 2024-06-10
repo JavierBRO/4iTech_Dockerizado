@@ -1,6 +1,7 @@
 package com.iTech.controller;
 
 import com.iTech.exception.ConflictDeleteException;
+import com.iTech.models.Keynote;
 import com.iTech.models.Room;
 import com.iTech.models.User;
 import com.iTech.models.UserRole;
@@ -9,6 +10,8 @@ import com.iTech.repository.KeynoteRepository;
 import com.iTech.repository.RoomRepository;
 import com.iTech.security.SecurityUtils;
 import com.iTech.services.FileService;
+import com.iTech.services.RoomService;
+
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,17 +26,18 @@ import java.util.Optional;
 @AllArgsConstructor
 @Slf4j
 public class RoomController {
-    List<Room> rooms;
 
     private  CommentRepository commentRepository;
     private final KeynoteRepository keynoteRepository;
+    private RoomService roomService;
     private final RoomRepository roomRepository;
     private FileService fileService;
 
 
     @GetMapping("rooms")
     public ResponseEntity<List<Room>> findAll(){
-        return ResponseEntity.ok(roomRepository.findAll());
+        List<Room> room = roomService.findRoomVisibleTrue();
+        return ResponseEntity.ok(room);
     }
     @GetMapping("rooms/{id}")
     public ResponseEntity<Room> findById(@PathVariable Long id) {
@@ -118,10 +122,13 @@ public void deleteById(@PathVariable Long id) {
     // }
              // Opción 2 : mediante un booleano visible, pasarlo a false y guardar
              
- 
+            
+    Keynote keynote = this.keynoteRepository.findById(id).orElseThrow();
     Room room = this.roomRepository.findById(id).orElseThrow();
     User user = SecurityUtils.getCurrentUser().orElseThrow();
         if (user.getUserRole().equals(UserRole.ADMIN)) {
+            keynote.setVisible(false);
+            keynoteRepository.save(keynote);
             room.setVisible(false);
             roomRepository.save(room);
         }

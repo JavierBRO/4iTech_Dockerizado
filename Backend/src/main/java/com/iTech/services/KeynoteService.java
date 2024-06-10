@@ -17,4 +17,6 @@ public interface KeynoteService {
 
     boolean deleteKeynote(Long id);
 
+
+
 }
