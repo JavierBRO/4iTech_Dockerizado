@@ -53,6 +53,7 @@ public class RoomController {
     public ResponseEntity<Room> create(@RequestBody Room room){
         return ResponseEntity.ok(roomRepository.save(room));
     }
+
     @PutMapping("rooms/{id}")
     public ResponseEntity<Room> update(@PathVariable Long id, @RequestBody Room room){
         if(!roomRepository.existsById(id)) return ResponseEntity.notFound().build();
@@ -121,8 +122,7 @@ public void deleteById(@PathVariable Long id) {
     //     }
     // }
              // Opción 2 : mediante un booleano visible, pasarlo a false y guardar
-             
-            
+
     Keynote keynote = this.keynoteRepository.findById(id).orElseThrow();
     Room room = this.roomRepository.findById(id).orElseThrow();
     User user = SecurityUtils.getCurrentUser().orElseThrow();
