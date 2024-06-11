@@ -64,6 +64,11 @@ docker run -p 8080:8080 --name backend --network myapp-network -e SPRING_DATASOU
 
 # 5. Ver logs de spring (Ctrl + C para salir)
 docker logs -f backend
+
+# 6.0 Construir la aplicación Angular en modo producción para generar la carpeta dist:
+# npm run build -- --configuration production
+# Y asegurarse previamente de la ruta de la carpeta dist generada y nombre de nuestro proyecto en Dockerfile
+
 # 6. Crear imagen frontend  
 docker build -t frontend:0.0.1 .
 
