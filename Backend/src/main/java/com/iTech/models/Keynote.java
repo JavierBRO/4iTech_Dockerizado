@@ -50,5 +50,6 @@ public class Keynote {
     @ToString.Exclude
     private List<User> attendees = new ArrayList<>(); // Many To Many
 
+    @Column(columnDefinition = "boolean") // tinyint en lugar de bit
     private Boolean visible;
 }
